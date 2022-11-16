@@ -1,0 +1,1 @@
+console.log('Studio microapp Script file')
