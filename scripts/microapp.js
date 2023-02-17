@@ -1,20 +1,41 @@
 
 function loadAyobaData() {
-    const msisdnInputs = document.querySelectorAll('[data-action="getMsisdn"]');
+    
+    const msisdnInputs = document.querySelectorAll('[data-ayoba-api="msisdn"]');
     for (let i = 0; i < msisdnInputs.length; i++) {
         const inputEle = msisdnInputs[i];
-        getMsisdn(inputEle)
+        getMsisdn(inputEle);
     }
-    const languageInputs = document.querySelectorAll('[data-action="getLanguage"]');
-    for (let i = 0; i < languageInputs.length; i++) {
-        const inputEle = languageInputs[i];
-        getLanguage(inputEle)
+
+    
+    const locationInputs = document.querySelectorAll('[data-ayoba-api="location"]');
+    for (let i = 0; i < locationInputs.length; i++) {
+        const inputEle = locationInputs[i];
+        getLocation(inputEle);
     }
-    const countryInputs = document.querySelectorAll('[data-action="getCountry"]');
+
+    
+    const countryInputs = document.querySelectorAll('[data-ayoba-api="country"]');
     for (let i = 0; i < countryInputs.length; i++) {
         const inputEle = countryInputs[i];
-        getCountry(inputEle)
+        getCountry(inputEle);
     }
+
+    
+    const languageInputs = document.querySelectorAll('[data-ayoba-api="language"]');
+    for (let i = 0; i < languageInputs.length; i++) {
+        const inputEle = languageInputs[i];
+        getLanguage(inputEle);
+    }
+
+    
+    const contactsInputs = document.querySelectorAll('[data-ayoba-api="contacts"]');
+    for (let i = 0; i < contactsInputs.length; i++) {
+        const inputEle = contactsInputs[i];
+        getContacts(inputEle);
+    }
+
+    
 }
 /**
 * A boilerplate microapp for ayoba that implements a stub interface and debug logging on the page
@@ -28,7 +49,7 @@ window.onerror = function (msg, url, line, col, error) { console.log(msg, url, l
 console.log("Starting...");
 var Ayoba = getAyoba();
 // Let's wait for the page to load before doing anything
-window.onload = function afterpagedLoad() {
+window.onload = () => {
     context = getURLParameter("context");
     debug = ("true" === getURLParameter("debug"));
     if (debug) {
@@ -172,6 +193,12 @@ function sendLocation() {
     // Ayoba.sendLocation(document.getElementById("inputTextLat").value, document.getElementById("inputTextLon").value);
 }
 
+function getLocation(inputEle) {
+    var location = Ayoba.sendLocation();
+    inputEle.value = location;
+    return location
+}
+
 function getCountry(inputEle) {
     var country = Ayoba.getCountry();
     inputEle.value = country;
@@ -309,9 +336,10 @@ function getContactName() {
     return contactName
 }
 
-function getContacts() {
+function getContacts(inputEle) {
     var contactsJson = Ayoba.getContacts();
-    // document.getElementById("inputText").value = contactsJson
+    inputEle.value = contactsJson;
+    console.log(contactsJson);
     return contactsJson;
 }
 
