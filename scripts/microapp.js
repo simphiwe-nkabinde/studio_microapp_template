@@ -59,7 +59,7 @@ window.onload = () => {
     }
     if (Ayoba === null) {
         console.log("Looks like we're not inside ayoba, stubbinng the situation...");
-        Ayoba = new AyobaStub();
+        // Ayoba = new AyobaStub();
         Ayoba.triggerNicknameChanged();
     }
     else {
